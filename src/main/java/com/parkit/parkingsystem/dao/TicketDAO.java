@@ -87,6 +87,7 @@ public class TicketDAO {
         return false;
     }
     
+    //retourne le nombre de ticket d'un véhicule
     public int getNbTicket(String vehicleRegNumber) {
         Connection con = null;
         Ticket ticket = null;

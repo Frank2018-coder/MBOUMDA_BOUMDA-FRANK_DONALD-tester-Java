@@ -54,6 +54,7 @@ public class ParkingDataBaseIT {
 
     }
 
+    //teste l'existance d'un vehicule dans la base base de donnée
     @Test
     public void testParkingACar(){
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
@@ -64,6 +65,8 @@ public class ParkingDataBaseIT {
         assertFalse(ticket.getParkingSpot().isAvailable());
     }
 
+    
+    //teste l'existance du vehicule dans le parking
     @Test
     public void testParkingLotExit(){
     	 testParkingACar();
@@ -84,13 +87,19 @@ public class ParkingDataBaseIT {
           assertTrue(ticket.getPrice()>0);
     }
     
+    /*test  pour la fonctionnalité de remise de
+    5% :  Il  teste le calcul du prix d’un
+    ticket via l’appel de processIncomingVehicle et processExitingVehicle
+    dans le cas d’un utilisateur récurrent.*/
     @Test
     public void testParkingLotExitRecurringUser(){
-    	testParkingLotExit();
+    	 testParkingLotExit();
     	 Ticket ticket1 = ticketDAO.getTicket("ABCDEF");
     	 testParkingLotExit();
     	 Ticket ticket2 = ticketDAO.getTicket("ABCDEF");
     	 assertTrue(Math.abs(ticket2.getPrice()) - ticket1.getPrice()*0.95 <= 0.0001);
     }
 
+   
+    
 }

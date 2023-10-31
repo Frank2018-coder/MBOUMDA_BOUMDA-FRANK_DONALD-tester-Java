@@ -8,6 +8,7 @@ import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -57,7 +58,9 @@ public class ParkingServiceTest {
         }
     }
 
+    
     @Test
+    @DisplayName("Test de l'existance d'un véhicule dans le parking ")
     public void processExitingVehicleTest(){
         parkingService.processExitingVehicle();
         verify(ticketDAO, Mockito.times(1)).getNbTicket(any(String.class));
@@ -65,7 +68,9 @@ public class ParkingServiceTest {
     }
     
     
+    
     @Test
+    @DisplayName("Test de la procedure d'entrée du vehicule ou tout se déroule comme attendu")
     public void processIncomingVehicleTest(){
         when(inputReaderUtil.readSelection()).thenReturn(1);
         when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
@@ -77,13 +82,16 @@ public class ParkingServiceTest {
     
 
     @Test
+    @DisplayName("Test de la procedure d'entrée du véhicule dans le cas ou la update renvoi false")
     public void processExitingVehicleTestUnableUpdate(){
     	 when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(false);
     	 parkingService.processExitingVehicle();
     	 verify(parkingSpotDAO, Mockito.times(0)).updateParking(any(ParkingSpot.class));
     }
     
+   
     @Test
+    @DisplayName("Test de l'appel getNextParkingNumberIfAvailable avec pour resultat l'obtention d'un spot dont l'ID est 1 et est disponible")
     public void testGetNextParkingNumberIfAvailable(){
     	when(inputReaderUtil.readSelection()).thenReturn(1);
     	when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
@@ -92,7 +100,9 @@ public class ParkingServiceTest {
     	 assertEquals(1, parking.getId());
     }
     
+    
     @Test
+    @DisplayName("Test de l'appel getNextParkingNumberIfAvailable avec pour resultat l'obtention aucun spot disponible (methode renvoi null)")
     public void testGetNextParkingNumberIfAvailableParkingNumberNotFound(){
     	 when(inputReaderUtil.readSelection()).thenReturn(1);
     	 when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(-1);
@@ -101,7 +111,9 @@ public class ParkingServiceTest {
     	 
     }
     
+    
     @Test
+    @DisplayName("Test de l'appel getNextParkingNumberIfAvailable avec pour resultat l'obtention d'un spot null car l'utilisateur à saisir un type de véhicule erroné")
     public void testGetNextParkingNumberIfAvailableParkingNumberWrongArgum(){
     	 when(inputReaderUtil.readSelection()).thenReturn(3);
     	// when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(-1);

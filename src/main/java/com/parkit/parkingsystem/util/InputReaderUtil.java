@@ -11,15 +11,17 @@ public class InputReaderUtil {
     private static final Logger logger = LogManager.getLogger("InputReaderUtil");
 
     public int readSelection() {
+    	
         try {
-            int input = Integer.parseInt(scan.nextLine());
+        	int input = Integer.parseInt(scan.nextLine()); 
             return input;
         }catch(Exception e){
-            logger.error("Error while reading user input from Shell", e);
+            //logger.error("Error while reading user input from Shell", e);
             System.out.println("Error reading input. Please enter valid number for proceeding further");
             return -1;
         }
     }
+    
 
     public String readVehicleRegistrationNumber() throws Exception {
         try {
