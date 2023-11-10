@@ -33,6 +33,23 @@ class ParkingSpotDaoTest {
 		ParkingSpot parking = new ParkingSpot(1, ParkingType.CAR, false);
 		parkingSpotdao.updateParking(parking);
 		assertTrue(parkingSpotdao.updateParking(parking));
+	}
+	
+	@Test
+	void testFailedUdapteParking() {
+		ParkingSpot parking = new ParkingSpot(0, null, false);
+		//parkingSpotdao.updateParking(parking);
+		assertFalse(parkingSpotdao.updateParking(parking));
+	}
+	
+	@Test
+	void testGetNextAvailableSlot() {
+		ParkingSpot parking = new ParkingSpot(1, ParkingType.CAR, true);
+		
+		ParkingSpot parkingDis = new ParkingSpot(1, ParkingType.CAR, true);
+		
+		assertEquals(parking, parkingDis);
+		
 		
 	}
 	
